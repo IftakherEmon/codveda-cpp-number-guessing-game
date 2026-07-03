@@ -11,6 +11,7 @@ int difficulty;
 int maxNumber;
 int secretNumber;
 int guess;
+int attempts = 0;
 
     // Initialize random seed
     srand(time(0));
@@ -63,9 +64,14 @@ int guess;
 
         // Temporary output for testing
         cout << "\n[DEBUG] Secret Number: " << secretNumber << endl;
-        do
+do
 {
-    cout << "\nEnter your guess (1-" << maxNumber << "): ";
+    attempts++;
+
+    cout << "\n-------------------------------------\n";
+    cout << "Attempt #" << attempts << endl;
+
+    cout << "Enter your guess (1-" << maxNumber << "): ";
     cin >> guess;
 
     if (guess > secretNumber)
@@ -78,8 +84,11 @@ int guess;
     }
     else
     {
-        cout << "\nCongratulations! \n";
-        cout << "You guessed the correct number!\n";
+        cout << "\n=====================================\n";
+        cout << "Congratulations! \n";
+        cout << "You guessed the correct number.\n";
+        cout << "Total Attempts: " << attempts << endl;
+        cout << "=====================================\n";
     }
 
 } while (guess != secretNumber);
