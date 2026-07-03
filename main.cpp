@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
 using namespace std;
 
@@ -22,15 +23,35 @@ int main()
         int attempts = 0;
         bool guessed = false;
 
-        cout << "\n=====================================\n";
-        cout << "       NUMBER GUESSING GAME\n";
-        cout << "=====================================\n";
-        cout << "1. Start Game\n";
-        cout << "2. Exit\n";
-        cout << "=====================================\n";
+        // ================= MAIN MENU =================
 
-        cout << "Enter your choice: ";
-        cin >> choice;
+        while (true)
+        {
+            cout << "\n=====================================\n";
+            cout << "       NUMBER GUESSING GAME\n";
+            cout << "=====================================\n";
+            cout << "1. Start Game\n";
+            cout << "2. Exit\n";
+            cout << "=====================================\n";
+
+            cout << "Enter your choice: ";
+
+            if (!(cin >> choice))
+            {
+                cout << "\nInvalid input! Please enter 1 or 2.\n";
+
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+
+            if (choice == 1 || choice == 2)
+            {
+                break;
+            }
+
+            cout << "\nInvalid choice! Please enter 1 or 2.\n";
+        }
 
         if (choice == 2)
         {
@@ -38,46 +59,60 @@ int main()
             break;
         }
 
-        if (choice != 1)
+        // ================= DIFFICULTY =================
+
+        while (true)
         {
-            cout << "\nInvalid Choice!\n";
-            continue;
+            cout << "\n=====================================\n";
+            cout << "       Choose Difficulty\n";
+            cout << "=====================================\n";
+            cout << "1. Easy (1-50)\n";
+            cout << "2. Medium (1-100)\n";
+            cout << "3. Hard (1-500)\n";
+
+            cout << "Enter difficulty: ";
+
+            if (!(cin >> difficulty))
+            {
+                cout << "\nInvalid input! Please enter a number between 1 and 3.\n";
+
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                continue;
+            }
+
+            if (difficulty == 1)
+            {
+                maxNumber = 50;
+                cout << "\nEasy Mode Selected.\n";
+                break;
+            }
+            else if (difficulty == 2)
+            {
+                maxNumber = 100;
+                cout << "\nMedium Mode Selected.\n";
+                break;
+            }
+            else if (difficulty == 3)
+            {
+                maxNumber = 500;
+                cout << "\nHard Mode Selected.\n";
+                break;
+            }
+            else
+            {
+                cout << "\nInvalid choice! Please choose a difficulty level between 1 and 3.\n";
+            }
         }
 
-        cout << "\n=====================================\n";
-        cout << "       Choose Difficulty\n";
-        cout << "=====================================\n";
-        cout << "1. Easy (1-50)\n";
-        cout << "2. Medium (1-100)\n";
-        cout << "3. Hard (1-500)\n";
-
-        cout << "\nEnter difficulty: ";
-        cin >> difficulty;
-
-        if (difficulty == 1)
-        {
-            maxNumber = 50;
-            cout << "\nEasy Mode Selected.\n";
-        }
-        else if (difficulty == 2)
-        {
-            maxNumber = 100;
-            cout << "\nMedium Mode Selected.\n";
-        }
-        else if (difficulty == 3)
-        {
-            maxNumber = 500;
-            cout << "\nHard Mode Selected.\n";
-        }
-        else
-        {
-            cout << "\nInvalid Difficulty!\n";
-            continue;
-        }
+        // ================= RANDOM NUMBER =================
 
         secretNumber = rand() % maxNumber + 1;
 
         cout << "\nYou have only " << MAX_ATTEMPTS << " attempts.\n";
+
+        // ================= GAME LOOP =================
 
         while (attempts < MAX_ATTEMPTS)
         {
@@ -87,7 +122,18 @@ int main()
             cout << "Attempt " << attempts << "/" << MAX_ATTEMPTS << endl;
 
             cout << "Enter your guess (1-" << maxNumber << "): ";
-            cin >> guess;
+
+            if (!(cin >> guess))
+            {
+                cout << "\nInvalid input! Please enter numbers only.\n";
+
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                attempts--;
+
+                continue;
+            }
 
             if (guess < 1 || guess > maxNumber)
             {
@@ -95,6 +141,7 @@ int main()
                      << maxNumber << ".\n";
 
                 attempts--;
+
                 continue;
             }
 
@@ -120,18 +167,38 @@ int main()
             }
         }
 
+        // ================= GAME OVER =================
+
         if (!guessed)
         {
             cout << "\n=====================================\n";
             cout << "Game Over!\n";
             cout << "Better Luck Next Time.\n";
-            cout << "The Secret Number was: "
-                 << secretNumber << endl;
+            cout << "The Secret Number was: " << secretNumber << endl;
             cout << "=====================================\n";
         }
 
-        cout << "\nDo you want to play again? (Y/N): ";
-        cin >> playAgain;
+        // ================= PLAY AGAIN =================
+
+        while (true)
+        {
+            cout << "\nDo you want to play again? (Y/N): ";
+
+            if (!(cin >> playAgain))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+
+            if (playAgain == 'Y' || playAgain == 'y' ||
+                playAgain == 'N' || playAgain == 'n')
+            {
+                break;
+            }
+
+            cout << "\nInvalid choice! Please enter Y or N.\n";
+        }
 
     } while (playAgain == 'Y' || playAgain == 'y');
 
