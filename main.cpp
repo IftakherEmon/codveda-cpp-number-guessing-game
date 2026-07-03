@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -6,6 +8,11 @@ int main()
 {
     int choice;
     int difficulty;
+    int maxNumber;
+    int secretNumber;
+
+    // Initialize random seed
+    srand(time(0));
 
     cout << "=====================================\n";
     cout << "       NUMBER GUESSING GAME\n";
@@ -31,20 +38,30 @@ int main()
 
         if (difficulty == 1)
         {
+            maxNumber = 50;
             cout << "\nEasy Mode Selected.\n";
         }
         else if (difficulty == 2)
         {
+            maxNumber = 100;
             cout << "\nMedium Mode Selected.\n";
         }
         else if (difficulty == 3)
         {
+            maxNumber = 500;
             cout << "\nHard Mode Selected.\n";
         }
         else
         {
             cout << "\nInvalid Difficulty!\n";
+            return 0;
         }
+
+        // Generate random number
+        secretNumber = rand() % maxNumber + 1;
+
+        // Temporary output for testing
+        cout << "\n[DEBUG] Secret Number: " << secretNumber << endl;
     }
     else if (choice == 2)
     {
