@@ -73,6 +73,16 @@ do
 
     cout << "Enter your guess (1-" << maxNumber << "): ";
     cin >> guess;
+    // Validate guess range
+if (guess < 1 || guess > maxNumber)
+{
+    cout << "\nInvalid input! Please enter a number between 1 and "
+         << maxNumber << ".\n";
+
+    attempts--;
+
+    continue;
+}
 
     if (guess > secretNumber)
     {
