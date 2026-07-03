@@ -6,10 +6,11 @@ using namespace std;
 
 int main()
 {
-    int choice;
-    int difficulty;
-    int maxNumber;
-    int secretNumber;
+int choice;
+int difficulty;
+int maxNumber;
+int secretNumber;
+int guess;
 
     // Initialize random seed
     srand(time(0));
@@ -62,6 +63,26 @@ int main()
 
         // Temporary output for testing
         cout << "\n[DEBUG] Secret Number: " << secretNumber << endl;
+        do
+{
+    cout << "\nEnter your guess (1-" << maxNumber << "): ";
+    cin >> guess;
+
+    if (guess > secretNumber)
+    {
+        cout << "Too High! Try again.\n";
+    }
+    else if (guess < secretNumber)
+    {
+        cout << "Too Low! Try again.\n";
+    }
+    else
+    {
+        cout << "\nCongratulations! \n";
+        cout << "You guessed the correct number!\n";
+    }
+
+} while (guess != secretNumber);
     }
     else if (choice == 2)
     {
